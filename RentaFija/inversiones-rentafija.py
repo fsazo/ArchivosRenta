@@ -950,11 +950,12 @@ if not df.empty:
     
     # Ajustes visuales
     fig_treemap.update_traces(
-        hovertemplate='<b>%{label}</b><br>Valor Final: %{value:,.0f} UF<extra></extra>',
+        #hovertemplate='<b>%{label}</b><br>Valor Final: %{value:,.0f} UF<extra></extra>',
+        hovertemplate='<b>%{label}</b><br>Valor Final: %{value} UF<extra></extra>',
     )
 
     fig_treemap.update_layout(
-        template='plotly_white',
+        template='plot ly_white',
         margin=dict(t=30, l=0, r=0, b=0),
     )
 
