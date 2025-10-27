@@ -224,11 +224,13 @@ if select_all_aseg_tabla or not aseguradoras_sel_tabla:
 else:
     df_tabla = df[df['Aseguradora'].isin(aseguradoras_sel_tabla)]
 
-# --- Mostrar aseguradoras seleccionadas como texto separado (no en el título del gráfico) ---
-if select_all_aseg_tabla:
-    st.caption("Aseguradoras seleccionadas: Todas")
-else:
-    st.caption(f"Aseguradoras seleccionadas: {', '.join(aseguradoras_sel_tabla)}")
+# Construir título con saltos de línea HTML
+titulo_grafico = (
+    f"<b>Aseguradora(s) seleccionada(s):</b> {', '.join(aseguradoras_sel_tabla) if not select_all_aseg_tabla else 'Todas'}<br>"
+)
+
+# Mostrar título arriba del gráfico
+st.markdown(titulo_grafico, unsafe_allow_html=True)
 
 
 tabla = df_tabla.groupby(['Aseguradora','Tipo_de_instrumento'])['Valor_final B.1'].sum().unstack(fill_value=0)
