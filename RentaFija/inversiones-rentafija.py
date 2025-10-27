@@ -951,7 +951,7 @@ if not df.empty:
     
     # Ajustes visuales
     fig_treemap.update_traces(
-        hovertemplate="<b>%{label}</b><br>Valor Final: %{value:,.0f} UF<extra></extra>",
+        hovertemplate='<b>%{label}</b><br>Valor Final: %{value:,.0f} UF<extra></extra>',
     
     )
 
