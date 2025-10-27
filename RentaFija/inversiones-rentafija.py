@@ -114,7 +114,6 @@ if archivos_urls:
     )
     latest_file_url = archivos_urls[latest_mmyy] # ESTA ES LA URL COMPLETA
     df = cargar_datos(latest_file_url)
-    st.code(f"URL del archivo más reciente: {latest_file_url}", language="python")
     
     # ⚠️ Definimos 'latest_file' para que el resto del código lo use.
     # Ahora contiene la URL, no la ruta local.
