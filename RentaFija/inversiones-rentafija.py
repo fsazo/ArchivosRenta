@@ -108,7 +108,10 @@ meses_es = {
 
 if archivos_urls:
     # Determinar el archivo más reciente (clave MMYY más alta)
-    latest_mmyy = max(archivos_urls.keys()) 
+    latest_mmyy = max(
+        archivos_urls.keys(), 
+        key=lambda mmyy: pd.to_datetime(mmyy, format='%m%y')
+    )
     latest_file_url = archivos_urls[latest_mmyy] # ESTA ES LA URL COMPLETA
     df = cargar_datos(latest_file_url)
     st.code(f"URL del archivo más reciente: {latest_file_url}", language="python")
