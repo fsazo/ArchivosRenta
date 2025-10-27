@@ -310,6 +310,14 @@ if not df_filtrado_torta.empty:
 
     df_pie['Valor Final UF'] = df_pie['Valor_final B.1']
 
+    # Construir título con saltos de línea HTML
+    titulo_grafico = (
+        f"<b>Aseguradora(s):</b> {', '.join(aseguradoras_sel_torta) if not select_all_aseg_torta else 'Todas'}<br>"
+    )
+
+    # Mostrar título arriba del gráfico
+    st.markdown(titulo_grafico, unsafe_allow_html=True)
+
     fig = px.pie(
         df_pie,
         values='Valor Final UF',
