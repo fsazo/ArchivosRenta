@@ -3,7 +3,7 @@ import streamlit as st
 import plotly.express as px
 import glob
 
-GITHUB_RAW_URL_BASE = "https://raw.githubusercontent.com/fsazo/ArchivosRenta/refs/heads/main/RentaVariable/"
+GITHUB_RAW_URL_BASE = "https://raw.githubusercontent.com/fsazo/ArchivosRenta/refs/heads/main/RentaVariable/AerchivosExcel/"
 
 # Lista de identificadores MMYY
 identificadores_mmyy = [
