@@ -3,6 +3,29 @@ import streamlit as st
 import plotly.express as px
 import glob
 
+GITHUB_RAW_URL_BASE = "https://raw.githubusercontent.com/fsazo/ArchivosRenta/refs/heads/main/RentaVariable/"
+
+# Lista de identificadores MMYY
+identificadores_mmyy = [
+    '1224', '0125', '0225', '0325', '0425',
+    '0525', '0625', '0725', '0825', '0925'
+]
+
+# GENERAR EL DICCIONARIO DE URLs automáticamente
+archivos_urls = {}
+for mmyy in identificadores_mmyy:
+    nombre_archivo_excel = f"Consolidado_renta_fija_{mmyy}.xlsx"
+    # El enlace es simplemente: Base + Nombre del archivo
+    url_completa = f"{GITHUB_RAW_URL_BASE}{nombre_archivo_excel}"
+    archivos_urls[mmyy] = url_completa
+
+
+# Inicializar las variables para el resto del script
+archivos_fechas = sorted(archivos_urls.keys())
+archivos = [archivos_urls[mmyy] for mmyy in archivos_fechas] # Lista de URLs para la evolución
+
+
+
 uf_1224 = 38416.69 / 1000
 uf_0125 = 38384.41 / 1000
 uf_0225 = 38647.94 / 1000
@@ -29,7 +52,7 @@ uf_mensual = {
     '0925': uf_0925
 }
 
-archivos = sorted(glob.glob("Consolidado_renta_variable_*.xlsx"))
+#archivos = sorted(glob.glob("Consolidado_renta_variable_*.xlsx"))
 
 # Función para formatear cualquier valor numérico sin decimales
 def formatear_sin_decimales(val):
@@ -49,18 +72,47 @@ def texto_titulo_seleccion(lista, select_all, max_items=3):
         return ",\u00A0".join(lista[:max_items]) + f" +{len(lista)-max_items} más"
 
 
+# @st.cache_data
+# def cargar_datos(path):
+#     # Extraer MMYY del nombre del archivo
+#     parte_fecha = path.split('_')[-1].replace('.xlsx','')  # ej: "0925"
+
+#     df = pd.read_excel(
+#         path, 
+#         sheet_name="Sheet1",
+#         usecols=['Aseguradora', 'Tipo Instrumento', 'Nemotecnico', 'Unidades', 'Valor_final']
+#     )
+#     df.columns = df.columns.str.strip()
+
+#     # --- Agrupar por Nemotecnico, Aseguradora y Tipo Instrumento ---
+#     df_agrupado = df.groupby(
+#         ['Aseguradora', 'Tipo Instrumento', 'Nemotecnico'],
+#         as_index=False
+#     ).agg({'Unidades':'sum', 'Valor_final':'sum'})
+
+#     # --- Convertir Valor_final a UF según el mes ---
+#     uf_mes = uf_mensual.get(parte_fecha, 1)  # default 1 si no encuentra
+#     df_agrupado['Valor_final'] = df_agrupado['Valor_final'] / uf_mes
+
+#     return df_agrupado
+
+
 @st.cache_data
-def cargar_datos(path):
-    # Extraer MMYY del nombre del archivo
-    parte_fecha = path.split('_')[-1].replace('.xlsx','')  # ej: "0925"
+def cargar_datos(url): # Ahora acepta una URL
+    # Extraer la fecha (MMYY) del nombre del archivo en la URL
+    try:
+        # Se asume que el nombre del archivo es el último segmento de la URL antes de cualquier parámetro
+        nombre_archivo = url.split('/')[-1] 
+        parte_fecha = nombre_archivo.replace('Consolidado_renta_variable_', '').replace('.xlsx', '')
+    except:
+        parte_fecha = '0000' # Respaldo
 
     df = pd.read_excel(
-        path, 
+        url, # Lee directamente desde la URL
         sheet_name="Sheet1",
-        usecols=['Aseguradora', 'Tipo Instrumento', 'Nemotecnico', 'Unidades', 'Valor_final']
+        usecols=['Aseguradora','Nemotecnico','Tipo_de_instrumento','Valor_final B.1','Fecha compra']
     )
     df.columns = df.columns.str.strip()
-
     # --- Agrupar por Nemotecnico, Aseguradora y Tipo Instrumento ---
     df_agrupado = df.groupby(
         ['Aseguradora', 'Tipo Instrumento', 'Nemotecnico'],
@@ -70,7 +122,6 @@ def cargar_datos(path):
     # --- Convertir Valor_final a UF según el mes ---
     uf_mes = uf_mensual.get(parte_fecha, 1)  # default 1 si no encuentra
     df_agrupado['Valor_final'] = df_agrupado['Valor_final'] / uf_mes
-
     return df_agrupado
 
 
