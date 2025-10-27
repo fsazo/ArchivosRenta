@@ -144,14 +144,30 @@ def obtener_nombre_mes_desde_archivo(nombre_archivo):
 
 
 # --- Cargar los archivos y obtener los nombres de mes automáticamente ---
-archivo_anterior = "Consolidado_renta_variable_1224.xlsx"
-archivo_posterior = "Consolidado_renta_variable_0925.xlsx"
+#archivo_anterior = "Consolidado_renta_variable_1224.xlsx"
+#archivo_posterior = "Consolidado_renta_variable_0925.xlsx"
 
-mes_anterior = obtener_nombre_mes_desde_archivo(archivo_anterior)
-mes_posterior = obtener_nombre_mes_desde_archivo(archivo_posterior)
+#mes_anterior = obtener_nombre_mes_desde_archivo(archivo_anterior)
+#mes_posterior = obtener_nombre_mes_desde_archivo(archivo_posterior)
 
-df_anterior = cargar_datos(archivo_anterior)
-df_posterior = cargar_datos(archivo_posterior)
+# Usar las claves MMYY para buscar las URLs
+clave_anterior = '1224'
+clave_posterior = '0925'
+
+# Obtener las URLs de descarga
+archivo_anterior_url = archivos_urls.get(clave_anterior)
+archivo_posterior_url = archivos_urls.get(clave_posterior)
+
+# Obtener nombres legibles de los meses (usando las claves MMYY)
+mes_anterior = pd.to_datetime(clave_anterior, format='%m%y').strftime('%B %Y').capitalize()
+mes_posterior = pd.to_datetime(clave_posterior, format='%m%y').strftime('%B %Y').capitalize()
+
+# Cargar los DataFrames usando las URLs
+df_anterior = cargar_datos(archivo_anterior_url) # USAR URL
+df_posterior = cargar_datos(archivo_posterior_url) # USAR URL
+
+#df_anterior = cargar_datos(archivo_anterior)
+#df_posterior = cargar_datos(archivo_posterior)
 
 aseguradoras_filtrar = [
     '4_Life', 'Augustar', 'BICE', 'CN_Life', 'Confuturo',
