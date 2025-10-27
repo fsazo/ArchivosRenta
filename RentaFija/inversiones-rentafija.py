@@ -788,7 +788,6 @@ else:
             customdata=df_resumen[['Tipo_de_instrumento']]
         )
 
-
         st.plotly_chart(fig_var, use_container_width=True)
 
 
@@ -946,14 +945,12 @@ if not df.empty:
         values='Valor Final UF',
         color='Aseguradora',
         color_discrete_sequence=colores,
-        hover_data={'Valor Final UF': True}
     )
 
     
     # Ajustes visuales
     fig_treemap.update_traces(
         hovertemplate='<b>%{label}</b><br>Valor Final: %{value:,.0f} UF<extra></extra>',
-    
     )
 
     fig_treemap.update_layout(
