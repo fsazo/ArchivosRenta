@@ -124,6 +124,7 @@ if archivos_urls:
     mes_actual = meses_es.get(fecha_archivo.month, "")
     año_actual = fecha_archivo.year
     mes_titulo = f"{mes_actual} {año_actual}"
+    print(f"Archivo más reciente: {latest_file} ({mes_titulo})")
 
 else:
     st.error("⚠️ Error: No se pudo generar la lista de URLs de archivos. Revise GITHUB_RAW_URL_BASE.")
