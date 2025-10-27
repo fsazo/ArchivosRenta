@@ -14,7 +14,7 @@ identificadores_mmyy = [
 # GENERAR EL DICCIONARIO DE URLs automáticamente
 archivos_urls = {}
 for mmyy in identificadores_mmyy:
-    nombre_archivo_excel = f"Consolidado_renta_fija_{mmyy}.xlsx"
+    nombre_archivo_excel = f"Consolidado_renta_variable_{mmyy}.xlsx"
     # El enlace es simplemente: Base + Nombre del archivo
     url_completa = f"{GITHUB_RAW_URL_BASE}{nombre_archivo_excel}"
     archivos_urls[mmyy] = url_completa
