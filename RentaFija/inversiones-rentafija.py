@@ -290,15 +290,6 @@ if select_all_aseg_torta or not aseguradoras_sel_torta:
 else:
     df_filtrado_torta = df[df['Aseguradora'].isin(aseguradoras_sel_torta)]
 
-
-# --- Mostrar aseguradoras seleccionadas como texto separado (no en el título del gráfico) ---
-if select_all_aseg_torta:
-    st.caption("Aseguradoras seleccionadas: Todas")
-else:
-    st.caption(f"Aseguradoras seleccionadas: {', '.join(aseguradoras_sel_torta)}")
-
-
-
 # --- Crear gráfico de torta ---
 if not df_filtrado_torta.empty:
     # Agrupar y sumar los valores finales por tipo de instrumento
@@ -312,7 +303,7 @@ if not df_filtrado_torta.empty:
 
     # Construir título con saltos de línea HTML
     titulo_grafico = (
-        f"<b>Aseguradora(s):</b> {', '.join(aseguradoras_sel_torta) if not select_all_aseg_torta else 'Todas'}<br>"
+        f"<b>Aseguradora(s) seleccionada(s):</b> {', '.join(aseguradoras_sel_torta) if not select_all_aseg_torta else 'Todas'}<br>"
     )
 
     # Mostrar título arriba del gráfico
