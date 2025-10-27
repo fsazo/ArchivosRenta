@@ -941,13 +941,31 @@ if not df.empty:
 
     
     # Crear treemap
-    fig_treemap = px.treemap(
-        df_treemap,
-        path=['Aseguradora', 'Tipo_de_instrumento'],
-        values='Valor Final UF',
-        color='Aseguradora',
-        color_discrete_sequence=colores,
-    )
+    # fig_treemap = px.treemap(
+    #     df_treemap,
+    #     path=['Aseguradora', 'Tipo_de_instrumento'],
+    #     values='Valor Final UF',
+    #     color='Aseguradora',
+    #     color_discrete_sequence=colores,
+    # )
+
+    # Botón para resetear vista (simula volver atrás)
+    if st.button("🔙 Volver al nivel principal"):
+        # Rehacer el gráfico sin estar 'zoomeado'
+        fig_treemap = px.treemap(
+            df,
+            path=['Aseguradora', 'Tipo_de_instrumento'],
+            values='Valor_final B.1',
+            title='Distribución del Valor Final en UF por Aseguradora y Tipo de Instrumento'
+        )
+    else:
+        # Gráfico interactivo normal
+        fig_treemap = px.treemap(
+            df,
+            path=['Aseguradora', 'Tipo_de_instrumento'],
+            values='Valor_final B.1',
+            title='Distribución del Valor Final en UF por Aseguradora y Tipo de Instrumento'
+        )
 
     # Ajustes visuales
     fig_treemap.update_traces(
