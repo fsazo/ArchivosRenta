@@ -390,7 +390,7 @@ tabla_resumen['Valor Final UF'] = tabla_resumen['Valor Final UF'].apply(lambda x
 # Construir título con saltos de línea HTML
 titulo_grafico = (
     f"<b>Aseguradora(s) seleccionada(s):</b> {', '.join(aseguradoras_sel_tabla) if not select_all_aseg_tabla else 'Todas'}<br>"
-    f"<b>Tipo(s) de instrumento:</b> {', '.join(tipos_sel_tabla) if not select_all_tipos_tabla else 'Todos'}"
+    f"<b>Tipo(s) de instrumento seleccionado(s):</b> {', '.join(tipos_sel_tabla) if not select_all_tipos_tabla else 'Todos'}"
 )
 
 # Mostrar título arriba del gráfico
