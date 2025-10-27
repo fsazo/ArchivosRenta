@@ -110,7 +110,7 @@ def cargar_datos(url): # Ahora acepta una URL
     df = pd.read_excel(
         url, # Lee directamente desde la URL
         sheet_name="Sheet1",
-        usecols=['Aseguradora','Nemotecnico','Tipo_de_instrumento','Valor_final B.1','Fecha compra']
+        usecols=['Aseguradora', 'Tipo Instrumento', 'Nemotecnico', 'Unidades', 'Valor_final']
     )
     df.columns = df.columns.str.strip()
     # --- Agrupar por Nemotecnico, Aseguradora y Tipo Instrumento ---
