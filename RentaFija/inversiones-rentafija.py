@@ -952,7 +952,12 @@ if not df.empty:
     # Ajustes visuales
     fig_treemap.update_traces(
         hovertemplate="<b>%{label}</b><br>Valor Final: %{value:,.0f} UF<extra></extra>",
-        marker_root_color="lightgrey"
+        marker=dict(
+        root=dict(
+            # Puedes usar 'lightgrey' o cualquier color para el botón de 'Volver'
+            color="lightgrey" 
+        )
+    )
     )
 
     fig_treemap.update_layout(
