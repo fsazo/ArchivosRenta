@@ -946,6 +946,7 @@ if not df.empty:
         values='Valor Final UF',
         color='Aseguradora',
         color_discrete_sequence=colores,
+        hover_data={'Valor Final UF': True}
     )
 
     
