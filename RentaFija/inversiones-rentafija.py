@@ -2,8 +2,6 @@ import pandas as pd
 import streamlit as st
 import plotly.express as px
 import glob
-import os
-
 
 GITHUB_RAW_URL_BASE = "https://raw.githubusercontent.com/fsazo/ArchivosRenta/refs/heads/main/RentaFija/"
 
@@ -20,6 +18,7 @@ for mmyy in identificadores_mmyy:
     # El enlace es simplemente: Base + Nombre del archivo
     url_completa = f"{GITHUB_RAW_URL_BASE}{nombre_archivo_excel}"
     archivos_urls[mmyy] = url_completa
+
 
 # Inicializar las variables para el resto del script
 archivos_fechas = sorted(archivos_urls.keys())
@@ -51,8 +50,8 @@ uf_mensual = {
     '0925': uf_0925
 }
 
-archivos = glob.glob("Consolidado_renta_fija_*.xlsx")
-df_list = []
+#archivos = glob.glob("Consolidado_renta_fija_*.xlsx")
+#df_list = []
 
 
 @st.cache_data
