@@ -386,6 +386,16 @@ if tipos_sel_tabla and not select_all_tipos_tabla:
 tabla_resumen.columns = ['Aseguradora', 'Tipo de Instrumento', 'Nemotécnico', 'Valor Final UF']
 tabla_resumen['Valor Final UF'] = tabla_resumen['Valor Final UF'].apply(lambda x: f"{x:,.0f}".replace(",", "."))
 
+
+# Construir título con saltos de línea HTML
+titulo_grafico = (
+    f"<b>Aseguradora(s) seleccionada(s):</b> {', '.join(aseguradoras_sel_tabla) if not select_all_aseg_tabla else 'Todas'}<br>"
+    f"<b>Tipo(s) de instrumento:</b> {', '.join(tipos_sel_tabla) if not select_all_tipos_tabla else 'Todos'}"
+)
+
+# Mostrar título arriba del gráfico
+st.markdown(titulo_grafico, unsafe_allow_html=True)
+
 # Mostrar la tabla en Streamlit
 st.dataframe(tabla_resumen, width='stretch')
 
